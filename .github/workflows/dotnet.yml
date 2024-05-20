@@ -20,8 +20,6 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
-    - name: Restore proj
-
     - name: Instal EF tools
       run: |
             dotnet new tool-manifest
