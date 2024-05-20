@@ -25,7 +25,7 @@ jobs:
             dotnet new tool-manifest
             dotnet tool install dotnet-ef --version 6.0.29
     - name: RESTORE
-      run: dotnet restore  
+      run: dotnet restore --runtime linux-x64   
     - name: Generate EF migration script
       run: dotnet ef migrations bundle --project "MatGPT" --verbose --configuration Bundle
     - name: Apply bundle
