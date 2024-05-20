@@ -27,6 +27,6 @@ jobs:
     - name: RESTORE
       run: dotnet restore  
     - name: Generate EF migration script
-      run: dotnet ef migrations bundle --project "MatGPT" --verbose 
+      run: dotnet ef migrations bundle --project "MatGPT" --verbose --configuration Bundle
     - name: Apply bundle
       run: ./efbundle --connection "${{ secrets.AZ_CONNSTR }}"
