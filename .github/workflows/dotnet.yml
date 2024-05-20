@@ -20,10 +20,14 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
+    - name: Restore proj
+
     - name: Instal EF tools
       run: |
             dotnet new tool-manifest
             dotnet tool install dotnet-ef --version 6.0.29
+    - name: RESTORE
+      run: dotnet restore  
     - name: Generate EF migration script
       run: dotnet ef migrations bundle --project "MatGPT" --verbose 
     - name: Apply bundle
