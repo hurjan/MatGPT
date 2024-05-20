@@ -13,8 +13,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    environment: az-deploy
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -30,4 +28,4 @@ jobs:
     - name: Generate EF migration script
       run: dotnet ef migrations bundle --project "MatGPT" --verbose --configuration Bundle
     - name: Apply bundle
-      run: ./efbundle --connection "${{ secrets.AZ_CONNSTR }}"
+      run: ./efbundle --connection "${{ secrets.REPO_AZ_CONNSTR }}"
