@@ -30,4 +30,4 @@ jobs:
         echo $GITHUB_PATH
         dotnet ef migrations bundle --project "MatGPT" --verbose --configuration Bundle
     - name: Apply bundle
-      run: ./efbundle --connection "${{ secrets.REPO_AZ_CONNSTR }}"
+      run: ./efbundle --connection ${{ secrets.REPO_AZ_CONNSTR }}
