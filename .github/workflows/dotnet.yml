@@ -30,6 +30,6 @@ jobs:
             dotnet new tool-manifest
             dotnet tool install dotnet-ef --version 6.0.29
     - name: build bundle
-      run: dotnet ef migrations bundle --self-contained -r linux-x64 --project "MatGPT" --start-project "MatGPT"
+      run: dotnet ef migrations bundle --self-contained -r linux-x64 --project "MatGPT" --startup-project "MatGPT"
       
       
