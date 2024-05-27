@@ -19,15 +19,17 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
+    - name: restor
+      run: dotnet restore
+    - name: build
+      run: dotnet build
+    - name: pub
+      run: dotnet publish -r linux-x64  
     - name: Instal EF tools
       run: |
             dotnet new tool-manifest
             dotnet tool install dotnet-ef --version 6.0.29
-    - name: RESTORE
-      run: dotnet restore --runtime linux-x64   
-    - name: Generate EF migration script
-      run: |
-        echo $GITHUB_PATH
-        dotnet ef migrations bundle --project "MatGPT" --verbose --configuration Bundle
-    - name: Apply bundle
-      run: ./efbundle --connection ${{ secrets.REPO_AZ_CONNSTR }}
+    - name: build bundle
+      run: dotnet ef migrations bundle --self-contained -r linux-x64 
+      
+      
