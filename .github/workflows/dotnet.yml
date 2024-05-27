@@ -19,7 +19,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Run test project
-      run: dotnet test MatGPT/MatGPTTestProject/
+      run: dotnet test MatGPT/MatGPTTestProject
     
   build:
 
