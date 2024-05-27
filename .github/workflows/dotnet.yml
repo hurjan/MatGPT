@@ -10,6 +10,17 @@ on:
     branches: [ "master" ]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@4
+    - name: Run tests
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
+    - name: Run test project
+      run: dotnet test MatGPT/MatGPTTestProject/
+    
   build:
 
     runs-on: ubuntu-latest
