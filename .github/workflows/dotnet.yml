@@ -62,7 +62,7 @@ jobs:
         
       - name: Docker variables
         run: |
-          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower]')
+          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           DOCKER_IMAGE=ghcr.io/$REPO_NAME/app:${{ github.sha }}   
           docker build -t $DOCKER_IMAGE .
           docker tag $DOCKER_IMAGE ghcr.io/$REPO_NAME/app:latest
