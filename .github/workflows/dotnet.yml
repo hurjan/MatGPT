@@ -55,6 +55,7 @@ jobs:
   
       runs-on: ubuntu-latest
       steps:
+      - uses: actions/checkout@v4
       - name: Docker login
         run: echo "${{ secrets.BACKEND_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: fetch all dotent artifacts
