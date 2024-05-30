@@ -59,7 +59,7 @@ jobs:
         run: echo "${{ secrets.BACKEND_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Docker variables
         run: |
-          REPO_NAME=$(echo ${{ github.respository }} | tf '[:upper:]' '[:lower]')
+          REPO_NAME=$(echo ${{ github.respository }} | tr '[:upper:]' '[:lower]')
           DOCKER_IMAGE=ghcr.io/$REPO_NAME/app:${{ github.sha }}
     
       - name: Download dotnet Artifacts
