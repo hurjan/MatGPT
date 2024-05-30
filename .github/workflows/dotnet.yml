@@ -50,4 +50,21 @@ jobs:
       with:
         name: migrations-bin
         path: ./migrationbundle
+
+    - name: Docker login
+      run: echo "{{ secrets.BACKEND_ACCESS_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Docker variables
+      run: |
+        REPO_NAME=$(echo ${{ github.respository }} | tf '[:upper:]' '[:lower]')
+        DOCKER_IMAGE=ghcr.io/$REPO_NAME/app:${{ github.sha }}
+    
+    - name: Download dotnet Artifacts
+      uses: actions/download-artifact@v4
+      
+    - name: Build and push Docker image  
+      run: |    
+        docker build -t $DOCKER_IMAGE .
+        docker tag $DOCKER_IMAGE ghcr.io/$REPO_NAME/app:latest
+        docker push $DOCKER_IMAGE
+        docker push ghcr.io/$REPO_NAME/app:latest  
         
