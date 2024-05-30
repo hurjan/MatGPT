@@ -6,8 +6,8 @@ COPY dotnet-bin-folder/ .
 COPY entrypoint.sh .
 RUN pwd
 RUN ls -al .
-RUN chmod +x ./migrationbudle
-RUN chmod +x ./MatGPT
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x /migrationbudle
+RUN chmod +x /MatGPT
+RUN chmod +x /entrypoint.sh
 RUN ls -al .
 ENTRYPOINT ["./entrypoint.sh"]
