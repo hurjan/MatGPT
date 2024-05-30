@@ -42,5 +42,34 @@ jobs:
             dotnet tool install dotnet-ef --version 6.0.29
     - name: build bundle
       run: dotnet ef migrations bundle --self-contained -r linux-x64 --project "MatGPT" --startup-project "MatGPT"
-      
+      name: Build
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build node application
+        run: npm run build
+
+      - name: Docker login
+        run: echo "${{ secrets.BACKEND_ACCESS_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push Docker image
+        run: |
+          REPO_NAME=$(echo ${{ github.repository  }} | tf '[:upper:]' '[:lower]')
+          DOCKER_IMAGE=ghcr.io/$REPO_NAME/app:${{ github.sha }}
+          docker build -t $DOCKER_IMAGE .
+          docker tag $DOCKER_IMAGE ghcr.io/$REPO_NAME/app:latest
+          docker push $DOCKER_IMAGE
+          docker push ghcr.io/$REPO_NAME/app:latest
+
       
