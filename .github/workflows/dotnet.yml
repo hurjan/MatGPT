@@ -57,16 +57,13 @@ jobs:
       steps:
       - name: Docker login
         run: echo "${{ secrets.BACKEND_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: fetch all dotent artifacts
+        uses: actions/download-artifact@v4
+        
       - name: Docker variables
         run: |
           REPO_NAME=$(echo ${{ github.respository }} | tr '[:upper:]' '[:lower]')
-          DOCKER_IMAGE=ghcr.io/$REPO_NAME/app:${{ github.sha }}
-    
-      - name: Download dotnet Artifacts
-        uses: actions/download-artifact@v4
-      
-      - name: Build and push Docker image  
-        run: |    
+          DOCKER_IMAGE=ghcr.io/$REPO_NAME/app:${{ github.sha }}   
           docker build -t $DOCKER_IMAGE .
           docker tag $DOCKER_IMAGE ghcr.io/$REPO_NAME/app:latest
           docker push $DOCKER_IMAGE
