@@ -4,6 +4,7 @@ ENV ASPNETCORE_URLS="http://localhost:5008"
 COPY migrations-bin/ .
 COPY dotnet-bin-folder/ .
 COPY entrypoint.sh .
+RUN ls -al .
 RUN chmod +x migrationbudle
 RUN chmod +x MatGPT
 RUN chmod +x entrypoint.sh
