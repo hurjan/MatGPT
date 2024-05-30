@@ -35,10 +35,19 @@ jobs:
     - name: build
       run: dotnet build
     - name: pub
-      run: dotnet publish -r linux-x64 -o tmp  
+      run: dotnet publish -r linux-x64 -o tmp
+    - uses: actions/upload-artifact@v4
+      with:
+        name: dotnet-bin-folder
+        path: ./tmp/
     - name: Instal EF tools
       run: |
             dotnet new tool-manifest
             dotnet tool install dotnet-ef --version 6.0.29
     - name: build bundle
-      run: dotnet ef migrations bundle --self-contained -r linux-x64 --project "MatGPT" --startup-project "MatGPT" -o tmp/migrationbundle
+      run: dotnet ef migrations bundle --self-contained -r linux-x64 --project "MatGPT" --startup-project "MatGPT" -o migrationbundle
+    - uses: actions/upload-artifact@v4
+      with:
+        name: migrations-bin
+        path: ./migrationbundle
+        
